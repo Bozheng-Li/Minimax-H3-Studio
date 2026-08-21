@@ -1,0 +1,73 @@
+# MiniMax-H3 Studio configuration template.
+# Copy to config.yaml, then adjust paths and provider settings.
+# Relative paths are resolved from the repository root.
+
+app:
+  host: 127.0.0.1
+  port: 7860
+  internal_url: http://127.0.0.1:7860
+
+provider:
+  # local: call a local vllm-omni server; api: call a compatible remote endpoint.
+  mode: local
+  base_url: http://127.0.0.1:8000
+  # Preferred for both local and API deployments:
+  api_key_env: MINIMAX_H3_API_KEY
+  # A file path is also supported. A non-existent path is treated as plaintext.
+  # api_key: ~/.config/minimax-h3/api_key
+  # api_key: sk-replace-me
+  model: MiniMax-H3
+  request_timeout_seconds: 120
+  tasks: [t2va, fl2va, ref2va]
+
+local:
+  # Only used when provider.mode is local.
+  partition: fl2va
+  host: 0.0.0.0
+  port: 8000
+  cuda_visible_devices: 0,1
+  model_root: ./models/MiniMax-H3
+  python: python3
+  vllm_omni: vllm-omni
+  gpu_count: 2
+  tensor_parallel_size: 2
+  usp: 1
+  ring: 1
+  dlo_resident_layers: 12
+  attention_backend: CUDNN_ATTN
+  vae_patch_parallel_size: 1
+  init_timeout_seconds: 1800
+  stage_init_timeout_seconds: 1800
+  sync_output: false
+  async_output_timeout_seconds: 7200
+  decode_stuck_timeout_seconds: 7200
+  pause_restart_on_stuck: true
+  log_file: data/logs/h3_backend.log
+
+output:
+  gpu_quantization: true
+  video_codec: h264_nvenc
+  fallback_video_codec: h264
+  nvenc_gpu: 0
+  nvenc_preset: p1
+  nvenc_tune: ll
+  nvenc_rate_control: constqp
+  nvenc_qp: 18
+  nvidia_library_dir: runtime/nvidia/lib
+
+storage:
+  jobs_file: data/state/jobs.json
+  model_state_file: data/state/model_state.json
+  director_file: data/state/director_projects.json
+  library_file: data/state/media_library.json
+  queue_assets: data/assets/queue
+  director_assets: data/assets/director
+  library_root: data/assets/library
+  latent_checkpoints: data/checkpoints/latents
+  outputs: outputs
+
+heartbeat:
+  interval_seconds: 120
+  first_check_seconds: 3600
+  auto_approve: false
+  auto_retry: false
