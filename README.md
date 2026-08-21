@@ -9,6 +9,33 @@
 
 MiniMax-H3 Studio 把模型调用、参考素材、连续镜头、导演调度和成片导出放进同一个工作台。它既可以连接本地部署的 MiniMax-H3，也可以连接兼容 `/v1/videos` 的远程 API。仓库只发布工作台核心代码，不包含模型权重、密钥、用户素材或运行状态。
 
+## 真实 Demo
+
+下面不是概念图，而是仓库当前导演项目实际使用的素材和实际生成结果。视频是 Ref2VA 导演流程的第 1 个 4 秒镜头，输出为 `1344×768 / H.264 / AAC`；点击海报即可打开原始 MP4。
+
+<p align="center">
+  <a href="docs/demo/hanli-nangongwan-shot-01.mp4">
+    <img src="docs/demo/hanli-nangongwan-shot-01-poster.jpg" alt="韩立与南宫婉：樱花水岸重逢，第 1 镜实际生成结果" width="78%">
+  </a>
+</p>
+
+<p align="center"><sub>实际生成结果 · 樱花水岸重逢 · 4.459 秒 · Ref2VA · 仅保留环境声，后期配音</sub></p>
+
+<table>
+  <tr>
+    <td width="33%"><img src="docs/demo/character-reference.png" alt="韩立与南宫婉人物参考图"></td>
+    <td width="33%"><img src="docs/demo/scene-cherry-waterfront.png" alt="樱花水岸场景参考图"></td>
+    <td width="33%"><img src="docs/demo/scene-lantern-market.png" alt="古镇灯市场景参考图"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>人物身份参考</sub></td>
+    <td align="center"><sub>前半段唯一场景：樱花水岸</sub></td>
+    <td align="center"><sub>后半段唯一场景：古镇灯市</sub></td>
+  </tr>
+</table>
+
+这组素材对应一个 10 镜头、每镜 4 秒的连续恋爱短剧：前 5 镜在樱花水岸重逢与并肩，镜头 6 显式切换到古镇灯市，后 5 镜完成挑簪、赠簪和牵手收束。场景图、人物图和镜头文本都来自导演项目数据，不写死在代码中。
+
 ## 先看界面
 
 这不是命令行脚本集合，而是一个可直接运行的浏览器工作台。下面的截图来自真实运行中的界面回归验收：
