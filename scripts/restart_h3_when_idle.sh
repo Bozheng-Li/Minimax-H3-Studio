@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 python_bin="${H3_STUDIO_PYTHON:-python3}"
 config_get=(/usr/bin/env PYTHONPATH="$project_dir" "$python_bin" -m h3studio.config)
 python_bin="$("${config_get[@]}" local python)"
@@ -42,7 +42,7 @@ done
 # `|| true`：会话不存在时 kill-session 返回非 0，set -e 会让脚本在这里静默退出，
 # 重启就永远不会发生（见 restart_h3_for_ref2va_when_ready.sh 同一处注释）。
 tmux kill-session -t h3-api 2>/dev/null || true
-tmux new-session -d -s h3-api "cd $project_dir && exec ./run_h3.sh"
+tmux new-session -d -s h3-api "cd $project_dir && exec ./scripts/run_h3.sh"
 
 for _ in $(seq 1 180); do
   if curl -fsS "$backend_url/health" >/dev/null; then

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bootstrap_python="${H3_STUDIO_PYTHON:-python3}"
 config_get=(/usr/bin/env PYTHONPATH="$project_dir" "$bootstrap_python" -m h3studio.config)
 h3_python="$("${config_get[@]}" local python)"
@@ -49,7 +49,7 @@ for _ in $(seq 1 60); do
 done
 
 write_state loading loading_weights 15 "正在加载 ${target^^} 权重（约需 10–15 分钟）…"
-tmux new-session -d -s h3-api "cd $project_dir && H3_PARTITION=$target exec ./run_h3.sh"
+tmux new-session -d -s h3-api "cd $project_dir && H3_PARTITION=$target exec ./scripts/run_h3.sh"
 
 for i in $(seq 1 240); do
   if curl -fsS "$backend_url/health" >/dev/null 2>&1; then

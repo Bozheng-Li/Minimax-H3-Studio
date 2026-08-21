@@ -535,7 +535,7 @@ async def _set_model_state(**changes: Any) -> None:
 def _model_switch_command(partition: str) -> list[str]:
     # 由当前前端 API 进程启动一个脱离父进程的脚本；脚本负责优雅终止旧
     # h3-api、更新状态文件、启动新分区并按阶段轮询 8000/health。
-    return ["/bin/bash", str(ROOT / "switch_h3_model.sh"), partition]
+    return ["/bin/bash", str(ROOT / "scripts" / "switch_h3_model.sh"), partition]
 
 
 def _load_library() -> None:
@@ -1360,7 +1360,7 @@ async def health() -> dict[str, Any]:
         result["engine_dead"] = True
         result["message"] = (
             "后端推理引擎已崩溃（日志出现 “" + dead_marker + "”）。"
-            "仅重启服务可恢复：tmux kill-session -t h3-api 后重新执行 ./run_h3.sh。"
+            "仅重启服务可恢复：tmux kill-session -t h3-api 后重新执行 ./scripts/run_h3.sh。"
         )
     state = dict(model_state)
     if state.get("status") == "loading" and state.get("started_at"):
@@ -1492,7 +1492,7 @@ def _assert_task_supported(task: str) -> None:
         detail=(
             f"当前后端加载的是 {partition.upper()} 分区，不支持 {task} 任务。"
             f"两个分区合计约 263GB，超过本机 251GB 内存，无法同时加载。"
-            f"需要该任务请切换分区：先停 h3-api，再执行 H3_PARTITION={other} ./run_h3.sh（约 13 分钟）。"
+            f"需要该任务请切换分区：先停 h3-api，再执行 H3_PARTITION={other} ./scripts/run_h3.sh（约 13 分钟）。"
         ),
     )
 
@@ -1507,7 +1507,7 @@ def _assert_engine_alive() -> None:
             status_code=503,
             detail=(
                 "后端推理引擎已崩溃，无法接受新任务。"
-                "请重启：tmux kill-session -t h3-api，然后 ./run_h3.sh（约 13 分钟）。"
+                "请重启：tmux kill-session -t h3-api，然后 ./scripts/run_h3.sh（约 13 分钟）。"
             ),
         )
 

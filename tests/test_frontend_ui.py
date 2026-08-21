@@ -14,7 +14,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 BASE = "http://127.0.0.1:7860"
-SHOTS_DIR = Path(__file__).resolve().parent / ".h3_ui_shots"
+SHOTS_DIR = Path("/tmp/h3_ui_shots")
 
 failures: list[str] = []
 checks = 0

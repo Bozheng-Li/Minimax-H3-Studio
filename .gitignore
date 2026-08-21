@@ -31,3 +31,9 @@ references/
 *.pyc
 !data/**/.gitkeep
 !outputs/.gitkeep
+!docs/
+!docs/screenshots/
+!docs/screenshots/*.png
+!docs/
+!docs/screenshots/
+!docs/screenshots/*.png

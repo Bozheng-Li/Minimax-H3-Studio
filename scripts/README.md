@@ -21,3 +21,14 @@ python scripts/director_heartbeat.py --auto-approve --auto-retry
 
 The monitor exits after all shots complete. Use tmux/systemd/supervisord when a
 long-lived background process is required.
+
+## Entrypoints
+
+```bash
+./scripts/run_h3.sh
+./scripts/run_frontend.sh
+./scripts/switch_h3_model.sh ref2va
+./scripts/restart_h3_when_idle.sh
+./scripts/restart_h3_for_ref2va_when_ready.sh
+./scripts/migrate_layout.sh
+```

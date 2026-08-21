@@ -17,7 +17,7 @@ export VLLM_OMNI_VIDEO_SYNC_TIMEOUT=14400
 # 必须保留：绕开 vLLM #38967（SM89 上 TP>1 时 cuMemCreate 段错误）
 export NCCL_CUMEM_HOST_ENABLE=0
 
-project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bootstrap_python="${H3_STUDIO_PYTHON:-python3}"
 config_get=(/usr/bin/env PYTHONPATH="$project_dir" "$bootstrap_python" -m h3studio.config)
 h3_python="$("${config_get[@]}" local python)"

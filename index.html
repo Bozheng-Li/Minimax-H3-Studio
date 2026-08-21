@@ -1995,7 +1995,7 @@ new MutationObserver(decorateQueueOrder).observe(document.getElementById('jobLis
       // 不可交互，而这里仍需进入作品库/队列。生成表单自身有真实 disabled。
       button.setAttribute('aria-description',usable?'':('当前 '+partition+' 分区下只可查看作品与队列，普通生成不可用'));
       button.title=usable?'':('当前后端加载的是 '+partition+' 分区，不支持此模式的生成。两个分区合计约 263GB，超过本机 251GB 内存，无法同时加载。'
-        +'需要的话先停 h3-api，再执行 H3_PARTITION=fl2va ./run_h3.sh（约 13 分钟）。');
+        +'需要的话先停 h3-api，再执行 H3_PARTITION=fl2va ./scripts/run_h3.sh（约 13 分钟）。');
       if(button.dataset.workspace==='regular'){
         $('submit').disabled=!usable;
         $('submit').title=usable?'':'当前 Ref2VA 分区不支持普通生成；作品库和生成队列仍可查看。';

@@ -1,0 +1,6 @@
+# Install after requirements.txt when running browser regression tests.
+-r requirements.txt
+playwright>=1.45.0
+
+# After installing the Python package, install the browser once:
+# python -m playwright install chromium

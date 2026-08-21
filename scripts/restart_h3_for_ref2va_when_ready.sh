@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bootstrap_python="${H3_STUDIO_PYTHON:-python3}"
 config_get=(/usr/bin/env PYTHONPATH="$project_dir" "$bootstrap_python" -m h3studio.config)
 model_dir="$("${config_get[@]}" local model_root)"
@@ -46,7 +46,7 @@ done
 # 后端就永远等不到重启（2026-08-20 卡死那次正是如此：h3-api 会话已不在，
 # 脚本在这一行终止，8000 端口无人拉起，只剩 curl 连接失败刷屏）。
 tmux kill-session -t h3-api 2>/dev/null || true
-tmux new-session -d -s h3-api "cd $project_dir && exec ./run_h3.sh"
+tmux new-session -d -s h3-api "cd $project_dir && exec ./scripts/run_h3.sh"
 
 for _ in $(seq 1 240); do
   if curl -fsS "$backend_url/health" >/dev/null; then
